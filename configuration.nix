@@ -17,15 +17,16 @@
       AppleInterfaceStyle = "Dark";
       KeyRepeat = 2;          # fast key repeat
       InitialKeyRepeat = 15;  # short delay before repeat
-      _HIHideMenuBar = true;  # auto-hide the menu bar
+      _HIHideMenuBar = false;
       AppleShowAllExtensions = true;
     };
-    dock.autohide = true;
+    dock.autohide = false;
     finder.FXPreferredViewStyle = "Nlsv";  # list view by default
     finder.CreateDesktop = false;          # clean desktop
     trackpad.Clicking = true;              # tap to click
   };
   nix-homebrew = {
+    autoMigrate = true;
     enable = true;
     inherit user;
   };
@@ -36,10 +37,14 @@
     onActivation.extraFlags = [ "--force" ];
     brews = [
       "herdr"
+      "zackelia/formulae/bclm"
     ];
     casks = [
       "wezterm"
       "claude-code"
+      "opensuperwhisper"  # local Whisper dictation, hotkey-triggered
+      "blackhole-16ch"    # virtual audio driver, already installed
+      "blackhole-2ch"     # virtual audio driver, already installed
     ];
   };
 }

@@ -16,11 +16,13 @@ in
     jq        # json on the command line
     lazygit
     neovim
+    nodejs    # gives npm/npx, e.g. `npx skills` for agent skill management
     # the font everything renders in
     nerd-fonts.hack
   ];
   fonts.fontconfig.enable = true;
   home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.CLAUDE_HOOK = "/usr/bin/true";
 
   programs.zsh = {
     enable = true;
@@ -40,10 +42,18 @@ in
     };
   };
 
+  programs.tmux = {
+    enable = true;
+    mouse = true;         # click to switch panes, drag to resize
+    baseIndex = 1;        # windows/panes numbered from 1, not 0
+    escapeTime = 0;       # no lag on esc in nvim
+  };
+
   programs.starship = {
     enable = true;
     settings = {
       add_newline = false;
+      command_timeout = 5000;
       format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
       character = {
         success_symbol = "[❯](purple)";

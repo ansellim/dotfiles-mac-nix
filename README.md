@@ -16,12 +16,14 @@ If you find a bug, please open a GitHub Issue using the bug report template.
 Running the switch builds:
 
 - System settings (dark mode, key repeat, dock, Finder, trackpad)
-- Homebrew apps (casks and CLI tools)
-- Nix user packages (ripgrep, fd, fzf, jq, lazygit, Neovim, Hack Nerd Font)
+- Homebrew apps (casks and CLI tools, including OpenSuperWhisper for local voice dictation)
+- Nix user packages (ripgrep, fd, fzf, jq, lazygit, Neovim, Node.js, Hack Nerd Font)
 - Shell (zsh, aliases, starship prompt)
 - Editor (Neovim config)
 - Terminal (WezTerm config)
+- Session manager (tmux, mouse mode on)
 - Agent configs (Claude, Codex, opencode all share one AGENTS.md)
+- `npx skills` works out of the box (Node.js is installed) for managing agent skills
 
 ## Prerequisites
 
