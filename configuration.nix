@@ -32,7 +32,7 @@
   };
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";  # remove anything not listed here
+    onActivation.cleanup = "none";  # changed from "zap" to preserve existing Homebrew packages
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
     brews = [
