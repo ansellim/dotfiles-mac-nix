@@ -21,11 +21,12 @@ echo "==> Step 2: symlink this repo to ~/.dotfiles"
 ln -sfn "$DIR" ~/.dotfiles
 
 echo "==> Step 2.5: symlink AGENTS.md and agent-specific files"
-mkdir -p ~/.claude ~/.codex ~/.config/opencode
+mkdir -p ~/.claude ~/.codex ~/.config/opencode ~/.grok
 ln -sfn ~/.dotfiles/home/AGENTS.md ~/AGENTS.md
 ln -sfn ~/.dotfiles/home/AGENTS.md ~/.claude/CLAUDE.md
 ln -sfn ~/.dotfiles/home/AGENTS.md ~/.codex/AGENTS.md
 ln -sfn ~/.dotfiles/home/AGENTS.md ~/.config/opencode/AGENTS.md
+ln -sfn ~/.dotfiles/home/AGENTS.md ~/.grok/AGENTS.md
 
 echo "==> Step 3: personalize the configured username"
 # Do this before any sudo call: sudo resets $USER to root, so whoami has to
