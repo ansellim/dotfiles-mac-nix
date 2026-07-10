@@ -73,7 +73,9 @@ in
     };
   };
 
-  # Edit-in-place: the real file stays in my repo, ~/.config just points at it.
+  # Edit-in-place: the real files live in the git repo under ~/.dotfiles.
+  # Pull/push of home/AGENTS.md (and other linked paths) updates the live
+  # agent config with no rebuild; only package/module changes need ./rebuild.sh.
   home.file.".config/wezterm".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
   home.file.".config/nvim".source =
@@ -83,9 +85,9 @@ in
   home.file.".claude/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.claude/settings.json";
 
+  # Single source: home/AGENTS.md. All agent tools share that file.
   home.file."AGENTS.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
-
   home.file.".claude/CLAUDE.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
   home.file.".codex/AGENTS.md".source =

@@ -67,6 +67,7 @@ Change the host label or CPU architecture if needed, and on Mac read the Homebre
 1. Installs Determinate Nix, if it isn't already installed.
 2. Symlinks this repo to `~/.dotfiles`.
    This has to happen before the first build, because `home.nix` points at config files through `~/.dotfiles`.
+   Agent files (`AGENTS.md`, Claude/Codex/opencode/Grok links) are **not** created by the script; home-manager installs them from `home.nix`.
 3. Checks the `user` configured in `flake.nix` against your actual username, and offers to fix it for you if they differ.
 4. Runs the first switch:
    - **Mac:** `darwin-rebuild switch` (fetches the tool from the nix-darwin 26.05 release branch, then applies this repo's locked flake config).
@@ -155,8 +156,18 @@ If you don't use it, just remove it from `brews` in your copy.
 ## How the symlinks work
 
 The files under `home/` are the real files - editing them here is editing your live config, no rebuild needed to see the change in your editor.
-`home.nix` uses `mkOutOfStoreSymlink` to point paths like `~/.config/nvim` straight at `home/.config/nvim` in this repo, so the two never drift out of sync.
+`home.nix` uses `mkOutOfStoreSymlink` to point paths like `~/.config/nvim` and `~/AGENTS.md` at this repo (via `~/.dotfiles`), so the two never drift out of sync.
 You only run `./rebuild.sh` when you change something that isn't just a symlinked file, like a package list or a system default.
+
+### Updating `AGENTS.md` from git
+
+`home/AGENTS.md` is the single source for Claude, Codex, opencode, and Grok.
+
+- **Pull remote changes into this machine:** `git pull` in the repo (or wherever `~/.dotfiles` points). No rebuild. Live agent paths already read that file.
+- **Push local edits to remote:** edit `home/AGENTS.md` (or the live `~/AGENTS.md` link), then commit and `git push`.
+- **Rebuild only if** you change *which* paths `home.nix` installs, not the markdown content itself.
+
+`bootstrap.sh` / `rebuild.sh` only maintain the `~/.dotfiles` repo link; they do not hand-manage agent files.
 
 ## Notes
 
