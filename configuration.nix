@@ -32,7 +32,7 @@
   };
   homebrew = {
     enable = true;
-    onActivation.cleanup = "none";  # changed from "zap" to preserve existing Homebrew packages
+    onActivation.cleanup = "zap";  # changed to zap to enforce declarative homebrew
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
     brews = [
@@ -42,6 +42,9 @@
     casks = [
       "wezterm"
       "claude-code"
+      "codex"
+      "antigravity-cli"
+      "visual-studio-code"
       "opensuperwhisper"  # local Whisper dictation, hotkey-triggered
       "blackhole-16ch"    # virtual audio driver, already installed
       "blackhole-2ch"     # virtual audio driver, already installed
