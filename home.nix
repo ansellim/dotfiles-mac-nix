@@ -1,13 +1,20 @@
-{ config, pkgs, user, ... }:
+{ config, pkgs, lib, user, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/.dotfiles";
+  homeDir =
+    if pkgs.stdenv.isDarwin
+    then "/Users/${user}"
+    else "/home/${user}";
 in
 
 {
   home.username = user;
-  home.homeDirectory = "/Users/${user}";
+  home.homeDirectory = homeDir;
   home.stateVersion = "24.11";
+  # Standalone home-manager (Linux): back up colliding files instead of aborting.
+  # On Mac, flake.nix also sets home-manager.backupFileExtension for nix-darwin.
+  home.backupFileExtension = "hm-backup";
   home.packages = with pkgs; [
     # cli i use constantly
     ripgrep   # fast search
@@ -19,8 +26,14 @@ in
     nodejs    # gives npm/npx, e.g. `npx skills` for agent skill management
     # the font everything renders in
     nerd-fonts.hack
+  ] ++ lib.optionals pkgs.stdenv.isLinux [
+    # On Mac these come from Homebrew casks in configuration.nix.
+    wezterm
   ];
   fonts.fontconfig.enable = true;
+  # Install the home-manager CLI into the user profile (standalone Linux).
+  # On Mac, darwin-rebuild owns activation; the CLI is optional there.
+  programs.home-manager.enable = pkgs.stdenv.isLinux;
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.CLAUDE_HOOK = "/usr/bin/true";
 
