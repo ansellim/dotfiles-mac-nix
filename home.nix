@@ -12,9 +12,6 @@ in
   home.username = user;
   home.homeDirectory = homeDir;
   home.stateVersion = "24.11";
-  # Standalone home-manager (Linux): back up colliding files instead of aborting.
-  # On Mac, flake.nix also sets home-manager.backupFileExtension for nix-darwin.
-  home.backupFileExtension = "hm-backup";
   home.packages = with pkgs; [
     # cli i use constantly
     ripgrep   # fast search
